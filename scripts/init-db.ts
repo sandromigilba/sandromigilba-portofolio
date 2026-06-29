@@ -14,17 +14,20 @@ if (fs.existsSync(envLocalPath)) {
 }
 
 async function setupDatabase() {
+  const dbName = process.env.MYSQL_DATABASE || "sandromigilba_portfolio";
   const pool = mysql.createPool({
     host: process.env.MYSQL_HOST || "localhost",
     port: parseInt(process.env.MYSQL_PORT || "3306"),
     user: process.env.MYSQL_USER || "root",
     password: process.env.MYSQL_PASSWORD || "",
-    database: process.env.MYSQL_DATABASE || "sandromigilba_portfolio",
     ssl: process.env.MYSQL_SSL === "true" ? { minVersion: "TLSv1.2", rejectUnauthorized: true } : undefined,
   });
 
   try {
     console.log('Connecting to database...');
+    await pool.query(`CREATE DATABASE IF NOT EXISTS \`${dbName}\``);
+    await pool.query(`USE \`${dbName}\``);
+    console.log(`✅ Selected database: ${dbName}`);
     
     await pool.query(`
       CREATE TABLE IF NOT EXISTS site_content (
