@@ -1,7 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  images: {
+    // Allow local /public directory images (default behavior)
+    // Add external domains here if needed in the future
+    remotePatterns: [],
+  },
+  devIndicators: false,
 };
 
 export default nextConfig;

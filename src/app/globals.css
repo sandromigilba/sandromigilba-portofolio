@@ -1,0 +1,176 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Outfit", "Inter", system-ui, -apple-system, sans-serif;
+  --color-brand-blue: #2563EB;
+  --color-brand-blue-accent: #60A5FA;
+  --color-brand-navy: #0F172A;
+  
+  /* Custom border-radius */
+  --radius-premium: 30px;
+  
+  /* Premium glowing shadows */
+  --shadow-premium: 0 12px 28px -8px rgba(0, 0, 0, 0.3), 0 4px 10px -4px rgba(37, 99, 235, 0.18);
+  --shadow-premium-hover: 0 20px 42px -10px rgba(0, 0, 0, 0.4), 0 6px 18px -5px rgba(37, 99, 235, 0.28);
+  --shadow-blue-glow: 0 0 20px rgba(96, 165, 250, 0.4);
+}
+
+/* Base styles */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply text-slate-900 transition-colors duration-300 antialiased overflow-x-hidden;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  /* Soften pure white text in dark mode for eye comfort */
+  .dark .text-white {
+    color: #f1f5f9 !important;
+  }
+
+  /* Custom Selection styling */
+  ::selection {
+    @apply bg-blue-100 text-blue-900;
+  }
+  
+  .dark ::selection {
+    @apply bg-blue-900/50 text-blue-100;
+  }
+
+  /* Custom scrollbar for premium look */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: #0F172A;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-blue-300 border-2 border-solid border-[#0F172A] rounded-full hover:bg-blue-200;
+  }
+  .dark ::-webkit-scrollbar-thumb {
+    @apply bg-slate-700 border-2 border-solid border-[#0F172A] rounded-full hover:bg-slate-600;
+  }
+
+  /* Custom scrollbar for premium look */
+}
+
+/* Floating animation for illustrations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(2deg);
+  }
+}
+
+@keyframes float-reverse {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(10px) rotate(-2deg);
+  }
+}
+
+@keyframes pulse-soft {
+  0%, 100% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.03);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-reverse {
+  animation: float-reverse 7s ease-in-out infinite;
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 4s ease-in-out infinite;
+}
+
+/* Dark Mode Utilities */
+.dark {
+  color-scheme: dark;
+}
+
+/* Text shadow for readability on custom backgrounds */
+.text-shadow-sm {
+  text-shadow: 0 1px 2px #4b5563;
+}
+
+.dark .text-shadow-sm {
+  text-shadow: 0 1px 2px #4b5563;
+}
+
+.text-shadow-md {
+  text-shadow: 0 2px 8px #4b5563;
+}
+
+.dark .text-shadow-md {
+  text-shadow: 0 2px 8px #4b5563;
+}
+
+/* All text shadow for readability */
+* {
+  text-shadow: 0 1px 3px #4b5563;
+}
+
+.dark * {
+  text-shadow: 0 1px 3px #4b5563;
+}
+
+/* Hide header navigation when modal is open */
+body.modal-open header {
+  transform: translateY(-150%) !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Light mode overrides */
+:root:not(.dark) {
+  --color-slate-950: #ffffff;
+  --color-slate-900: #ffffff;
+  --color-slate-850: #f8fafc;
+  --color-slate-800: #f8fafc;
+  --color-slate-750: #f1f5f9;
+  --color-slate-700: #f1f5f9;
+  --color-slate-650: #e2e8f0;
+  --color-slate-600: #e2e8f0;
+  --color-slate-550: #cbd5e1;
+  --color-slate-500: #cbd5e1;
+  --color-slate-450: #94a3b8;
+  --color-slate-400: #94a3b8;
+}
+
+:root:not(.dark) body {
+  color: #f1f5f9;
+}
+
+/* Style sub section headers and titles (h2, h3, h4) */
+h2, h3, h4 {
+  color: var(--color-slate-900) !important;
+  opacity: 0.75;
+}
+
+.dark h2, .dark h3, .dark h4 {
+  color: #f1f5f9 !important;
+  opacity: 0.7;
+}
+
+/* Make browser's reveal password (eye) icon white */
+input::-ms-reveal {
+  filter: invert(100%);
+}
