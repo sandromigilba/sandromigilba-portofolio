@@ -1,6 +1,6 @@
 import mysql from "mysql2/promise";
 
-// MySQL connection pool — configured via .env.local
+// MySQL/TiDB connection pool — configured via .env.local
 const pool = mysql.createPool({
   host: process.env.MYSQL_HOST || "localhost",
   port: parseInt(process.env.MYSQL_PORT || "3306"),
@@ -10,6 +10,7 @@ const pool = mysql.createPool({
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
+  ssl: process.env.MYSQL_SSL === "true" ? { minVersion: "TLSv1.2", rejectUnauthorized: true } : undefined,
 });
 
 export default pool;
